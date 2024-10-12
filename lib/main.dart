@@ -27,12 +27,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CharactersCubit(
-        FatchCharatersUseCase(
-          charatersRepo: getIt.get<CharactersRepoImpl>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => CharactersCubit(
+            FatchCharatersUseCase(
+              charatersRepo: getIt.get<CharactersRepoImpl>(),
+            ),
+          )..fetchCharaters(),
         ),
-      )..fetchCharaters(),
+      ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
