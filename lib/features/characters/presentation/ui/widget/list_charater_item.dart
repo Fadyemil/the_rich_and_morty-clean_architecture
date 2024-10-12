@@ -46,7 +46,6 @@ class ListCharaterItem extends StatelessWidget {
 
           // Info Section
           Flexible(
-            // اضف هذا العنصر
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -64,7 +63,7 @@ class ListCharaterItem extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
 
-                  // Character Status and Species
+                  //~ Character Status and Species
                   AutoSizeText(
                     '${chara.status} - ${chara.species}',
                     style: const TextStyle(
@@ -73,7 +72,7 @@ class ListCharaterItem extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
 
-                  // Last Known Location
+                  //~ Last Known Location
                   const AutoSizeText(
                     'Last known location:',
                     style: TextStyle(color: Colors.white60, fontSize: 12),
