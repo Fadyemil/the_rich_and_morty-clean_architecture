@@ -14,14 +14,15 @@ class CharactersRepoImpl extends CharatersRepo {
       required this.charatersLocalDataSource});
 
   @override
-  Future<Either<Failure, List<CharatersEntities>>> fatchCharaters() async {
+  Future<Either<Failure, List<CharatersEntities>>> fatchCharaters(
+      {int pageNumber = 0}) async {
+    List<CharatersEntities> charaters;
     try {
-      List<CharatersEntities> charaters;
-      charaters = charatersLocalDataSource.fetchCharaters();
+      charaters = charatersLocalDataSource.fetchCharaters(pageNumber: pageNumber);
       if (charaters.isNotEmpty) {
         return right(charaters);
       }
-      charaters = await charatersRemoteDataSource.fetchCharaters();
+      charaters = await charatersRemoteDataSource.fetchCharaters(pagenumber: pageNumber);
       return Right(charaters);
     } on Failure catch (e) {
       return Left(e);
