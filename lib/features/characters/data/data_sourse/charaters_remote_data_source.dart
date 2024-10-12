@@ -8,7 +8,7 @@ import 'package:the_rich_and_morty/features/characters/data/models/charaters_mod
 import 'package:the_rich_and_morty/features/characters/domain/entities/charaters_entities.dart';
 
 abstract class CharatersRemoteDataSource {
-  Future<List<CharatersEntities>> fetchCharaters();
+  Future<List<CharatersEntities>> fetchCharaters({int pagenumber = 0});
 }
 
 class CharatersRemoteDataSourceImpl extends CharatersRemoteDataSource {
@@ -17,8 +17,8 @@ class CharatersRemoteDataSourceImpl extends CharatersRemoteDataSource {
   CharatersRemoteDataSourceImpl({required this.api});
 
   @override
-  Future<List<CharatersEntities>> fetchCharaters() async {
-    var data = await api.get(EndPoint.character);
+  Future<List<CharatersEntities>> fetchCharaters({int pagenumber = 0}) async {
+    var data = await api.get('${EndPoint.character}/?page=${pagenumber * 20}');
 
     List<CharatersEntities> characters = getCharactersList(data);
     saveCharatersData(characters, BoxName.kCharactersBox);
@@ -28,12 +28,9 @@ class CharatersRemoteDataSourceImpl extends CharatersRemoteDataSource {
   List<CharatersEntities> getCharactersList(Map<String, dynamic> data) {
     List<CharatersEntities> characters = [];
 
-    // // تأكد من أن المفتاح 'results' يحتوي على بيانات
-    // if (data.containsKey('results')) {
     for (var characterMap in data['results']) {
       characters.add(CharatersModels.fromJson(characterMap));
     }
-    // }
     log('Number of characters fetched: ${characters.length}');
     return characters;
   }
