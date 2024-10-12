@@ -18,3 +18,11 @@ class CharactersSuccess extends CharactersState {
 
   CharactersSuccess({required this.characters});
 }
+
+class FeaturedCharactersPaginationLoading extends CharactersState {}
+
+class FeaturedCharactersPaginationFailure extends CharactersState {
+  final String errMessage;
+
+  FeaturedCharactersPaginationFailure({required this.errMessage});
+}
